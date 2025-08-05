@@ -90,20 +90,16 @@ Statistics Folder/
     └── ...
 └── October 2024 - September 2025/
     ├── Braden River Branch.xlsx
-    ├── Central Library Branch.xlsx
-    ├── Digital Information Branch.xlsx
     └── ...
 └── Template/
     ├── Braden River Branch.xlsx
-    ├── Central Library Branch.xlsx
-    ├── Digital Information Branch.xlsx
     └── ...
-└── Library Data Dashboard/               # Source data directories
+└── Library Data Dashboard/              
     ├── Create New Branch.py              # Branch template creation tool
     ├── MasterDataset.xlsx                # Generated consolidated dataset
     ├── Refresh Dashboard Dataset.py      # Main data processing script  
-    ├── Internal Library Dashboard.pbix
-    └── Public Library Dashboard.pbix
+    ├── Internal Library Dashboard.pbix   # Dashboard for Internal Staff
+    └── Public Library Dashboard.pbix     # Dashboard for External/Public View
 ```
 
 ## 🚀 Getting Started
