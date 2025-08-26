@@ -22,9 +22,7 @@ def create_excel_template():
         "Library_Branch_Distribution": ["Month_Year", "Library_Branch", "Events"],
         "Audience_Distribution": ["Month_Year", "Audience_Type", "Events"],
         "Category_Distribution": ["Month_Year", "Category", "Events"],
-        "Manatee_Library_Events": ["Month_Year", "Metric", "Value"],
-        "Staff_Training_Events": ["Month_Year", "Metric", "Value"],
-        "Other_Calendar_Events": ["Month_Year", "Metric", "Value"]
+        "Staff_Training_Events": ["Month_Year", "Metric", "Value"]
     }
     
     # Create worksheets with headers
@@ -306,10 +304,18 @@ def populate_category_sheet(wb, data_lines):
     header_line = data_lines[0]
     months = [month.strip().strip('"') for month in header_line.split(',')[1:]]
     
-    # Process each category
+    # Process each category - skip empty lines and stop at Individual Calendars
     for line in data_lines[1:]:
-        if line.strip():
-            parts = [part.strip().strip('"') for part in line.split(',')]
+        # Skip empty lines
+        if not line.strip():
+            continue
+        
+        # Stop if we hit the Individual Calendars section
+        if "Individual Calendars Monthly Breakdown" in line:
+            break
+            
+        parts = [part.strip().strip('"') for part in line.split(',')]
+        if len(parts) > 1:  # Ensure we have data
             category = parts[0]
             values = parts[1:]
             
@@ -325,37 +331,38 @@ def populate_category_sheet(wb, data_lines):
                         continue
 
 def process_individual_calendars(wb, section_content):
-    """Process Individual Calendars section"""
+    """Process Individual Calendars section - only Staff Training"""
     lines = section_content.strip().split('\n')
     
     current_sheet = None
     months = []
     header_found = False
+    processing_staff_training = False
     
     for line in lines:
         line = line.strip()
         if not line:
             continue
             
-        # Detect which calendar type based on content
-        if 'Manatee Library Events Monthly Distribution' in line:
-            current_sheet = wb["Manatee_Library_Events"]
-            header_found = False
-        elif 'Staff Training  Monthly Distribution' in line:
+        # Look specifically for Staff Training section
+        if 'Staff Training  Monthly Distribution' in line:
             current_sheet = wb["Staff_Training_Events"]
             header_found = False
-        elif 'Monthly Distribution' in line and current_sheet is None:
-            current_sheet = wb["Other_Calendar_Events"]
-            header_found = False
+            processing_staff_training = True
+            continue
+        
+        # Stop processing if we hit another section after Staff Training
+        if processing_staff_training and 'Monthly Distribution' in line and 'Staff Training' not in line:
+            break
         
         # Check if this is the month header row
-        if line.startswith('Month/Year') and current_sheet is not None:
+        if line.startswith('Month/Year') and current_sheet is not None and processing_staff_training:
             months = [month.strip() for month in line.split(',')[1:]]
             header_found = True
             continue
         
-        # Process data rows
-        if header_found and current_sheet is not None and ',' in line and not line.startswith('Month/Year'):
+        # Process data rows for Staff Training only
+        if header_found and current_sheet is not None and processing_staff_training and ',' in line and not line.startswith('Month/Year'):
             parts = [part.strip() for part in line.split(',')]
             metric = parts[0]
             values = parts[1:]
@@ -421,21 +428,21 @@ def main():
         
         # Print summary
         if os.path.exists(output_excel):
-            print(f"\n Conversion completed successfully!")
-            print(f" Created {len(wb.sheetnames)} worksheets:")
+            print(f"\n✅ Conversion completed successfully!")
+            print(f"📊 Created {len(wb.sheetnames)} worksheets:")
             
             for ws in wb.worksheets:
                 row_count = ws.max_row - 1  # Subtract header row
-                print(f"    {ws.title}: {row_count} data rows")
+                print(f"   📋 {ws.title}: {row_count} data rows")
             
             wb.close()
             
-            print(f"\n The file '{output_excel}' is now ready for Power BI import!")
-            print(" Each worksheet represents a different data dimension for analysis.")
-            print(" Import each sheet as a separate table in Power BI for comprehensive dashboards.")
+            print(f"\n🎯 The file '{output_excel}' is now ready for Power BI import!")
+            print("📈 Each worksheet represents a different data dimension for analysis.")
+            print("🔗 Import each sheet as a separate table in Power BI for comprehensive dashboards.")
         
     except Exception as e:
-        print(f"X Error during conversion: {str(e)}")
+        print(f"❌ Error during conversion: {str(e)}")
         print("Please check your CSV file format and try again.")
 
 if __name__ == "__main__":
