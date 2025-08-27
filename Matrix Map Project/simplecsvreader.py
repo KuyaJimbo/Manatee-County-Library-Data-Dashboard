@@ -6,7 +6,7 @@ from openpyxl import load_workbook, Workbook
 wb = Workbook()
 
 # Give the Workbook The Following Worksheets
-workbook_setup = {"EventInformation": ["EventID", "Title", "Event Date", "Duration", "Staff Time", "Location", "Library Branch", "Event Organizer", "Presenter", "Publishing Status", "Registration Required", "In-Person Seats", "Online Seats", "Confirmed Registrations", "Waiting-List Registrations", "Cancelled Registrations", "Anticipated Attendance", "Actual Attendance (In-Person)", "Actual Attendance (Online)", "Confirmed Attendance"],
+workbook_setup = {"EventInformation": ["EventID", "Title", "Event Date", "Duration", "Staff Time", "Location", "Library Branch", "Event Organizer", "Presenter", "Audiences", "Categories", "Publishing Status", "Internal Tags", "Registration Required", "In-Person Seats", "Online Seats", "Confirmed Registrations", "Waiting-List Registrations", "Cancelled Registrations", "Anticipated Attendance", "Actual Attendance (In-Person)", "Actual Attendance (Online)", "Confirmed Attendance"],
                   "EventAudiences": ["EventID", "Audience"],
                   "EventCategories": ["EventID", "Category"],
                   "EventInternalTags": ["EventID", "Internal Tag"]}
@@ -63,7 +63,7 @@ with open("Programs2024.csv", newline="", encoding="utf-8") as f:
 
         # Add to Event Information Table
         ws = wb["EventInformation"]
-        ws.append([EventID, Title, EventDate, Duration, StaffTime, Location, LibraryBranch, EventOrganizer, Presenter, Published, RegistrationRequired, InPersonSeats, OnlineSeats, ConfirmedRegistrations, WaitlistRegistrations, CancelledRegistrations, AnticipatedAttendance, ActualAttendance_InPerson, ActualAttendance_Online, ConfirmedAttendance])
+        ws.append([EventID, Title, EventDate, Duration, StaffTime, Location, LibraryBranch, EventOrganizer, Presenter, Audiences, Categories, Published, InternalTags, RegistrationRequired, InPersonSeats, OnlineSeats, ConfirmedRegistrations, WaitlistRegistrations, CancelledRegistrations, AnticipatedAttendance, ActualAttendance_InPerson, ActualAttendance_Online, ConfirmedAttendance])
 
         # Add to Event Audiences Table
         ws = wb["EventAudiences"]
