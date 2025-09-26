@@ -57,16 +57,19 @@ def create_dataset_template():
     wb = Workbook()
 
     # Give the Workbook The Following Worksheets
-    workbook_setup = {  "EventInformation": [ "EventID", "Title", "Location", "Library Branch",
-                                            "Event Organizer", "Presenter", "Audiences", 
-                                            "Categories", "Internal Tags"],
+    workbook_setup = {  "EventInformation": [   "EventID", "Title", "Location", "Library Branch",
+                                                "Event Organizer", "Presenter", "Audiences", 
+                                                "Categories", "Internal Tags"],
+
                         "EventAudiences": ["EventID", "Audience"],
                         "EventCategories": ["EventID", "Category"],
                         "EventInternalTags": ["EventID", "Internal Tag"],
-                        "EventTimes": ["EventID", "Event Start Date", "Event End Date", "All Day Event",
-                                    "Start Time", "End Time", "Set Up Time",
-                                    "Tear Down Time", "Duration", "Staff Time", "Raw Duration", "Different Dates"],
-                        "EventParticipation": ["EventID", "Registration Required", "In-Person Seats", 
+
+                        "EventTimes": [ "EventID", "Event Start Date", "Event End Date", "All Day Event",
+                                        "Start Time", "End Time", "Set Up Time", "Tear Down Time", 
+                                        "Duration", "Staff Time", "Raw Duration", "Different Dates"],
+
+                        "EventParticipation": [ "EventID", "Registration Required", "In-Person Seats", 
                                                 "Online Seats", "Confirmed Registrations", 
                                                 "Waiting-List Registrations", "Cancelled Registrations", 
                                                 "Anticipated Attendance", "Actual Attendance (In-Person)", 
@@ -214,6 +217,42 @@ def main():
 
 import time
 if __name__ == "__main__":
+    '''
+    This program organizes the LibCal Events Exported Dataset into a structured Excel workbook 
+    which facilitates data analysis and visualization when imported into Power BI.
+
+    Data Entry Validation Tool:
+    The Power BI tool I'm making will visualize potential data entry errors and inconsistencies.
+    1) Display information of EventIDs and their Titles where start and end dates differ
+    2) Display information of EventIDs and their Titles with a slicer for Raw Duration
+    3) Display information of EventIDs and their Titles where the Library Branch or Location is Inaccurate
+
+    Title Groupings:
+    Since event titles may not always be consistent, I need to do some text analysis:
+
+    Solution 1) Add new worksheet titles EventGroupings
+    Headers = ["Group Title", "Title"]
+    Examples of rows:
+    ["Storytime", "Storytime"]
+    ["Storytime", "Story Time"]
+    ["Storytime", "Stories for Kids"]
+    * Pros: Allows data to be filtered by group simply in Power BI
+    * Cons: Unless a pattern can be identified with an algorithm, manual implementation will be required!
+
+    Solution 2) Use Machine Learning for Title Classification
+    - Train a model to classify event titles into predefined groups
+    - Use techniques like Natural Language Processing (NLP) to analyze title text
+    - Automate the grouping process, reducing manual effort
+
+    Solution 3) Implement a Hybrid Approach
+    - Combine rule-based and machine learning techniques for better accuracy
+    - Use initial rules to filter and group titles, then apply ML for final classification
+
+    Solution 4) Manual Review and Adjustment
+    - After automated grouping, conduct a manual review to catch any misclassifications
+    - Allow for user feedback to improve the grouping process over time
+
+    '''
     start_time = time.time()
     main()
     end_time = time.time()

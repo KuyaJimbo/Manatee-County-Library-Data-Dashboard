@@ -1,0 +1,160 @@
+<div class="container">
+    <p>&nbsp;</p>
+    <p></p>
+    <table style="color:#333333;font-family:'Open Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;text-align:left;">
+        <thead>
+            <tr>
+                <th>Quantity</th>
+                <th>Service</th>
+                <th>Value ($)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input data-product="books" value="0" min="0" type="number" /></td>
+                <td>Books Borrowed</td>
+                <td class="value-cell">0.00</td>
+            </tr>
+            <tr>
+                <td><input data-product="magazines" value="0" min="0" type="number" /></td>
+                <td>Magazines Borrowed</td>
+                <td class="value-cell">0.00</td>
+            </tr>
+            <tr>
+                <td><input data-product="dvds" value="0" min="0" type="number" /></td>
+                <td>DVDs Borrowed</td>
+                <td class="value-cell">0.00</td>
+            </tr>
+            <tr>
+                <td><input data-product="audiobooks" value="0" min="0" type="number" /></td>
+                <td>Audiobooks Borrowed</td>
+                <td class="value-cell">0.00</td>
+            </tr>
+            <tr>
+                <td><input data-product="ebooks" value="0" min="0" type="number" /></td>
+                <td>eBooks Borrowed</td>
+                <td class="value-cell">0.00</td>
+            </tr>
+            <tr>
+                <td><input data-product="meeting-room" value="0" min="0" type="number" /></td>
+                <td>Meeting Room Usage (Hours)</td>
+                <td class="value-cell">0.00</td>
+            </tr>
+            <tr>
+                <td><input data-product="wifi" value="0" min="0" type="number" /></td>
+                <td>Wi-Fi Use (Sessions)</td>
+                <td class="value-cell">0.00</td>
+            </tr>
+            <tr>
+                <td><input data-product="online-learning" value="0" min="0" type="number" /></td>
+                <td>Online Learning (LinkedIn, Languages, etc.)</td>
+                <td class="value-cell">0.00</td>
+            </tr>
+            <tr>
+                <td><input data-product="databases" value="0" min="0" type="number" /></td>
+                <td>Databases Used</td>
+                <td class="value-cell">0.00</td>
+            </tr>
+            <tr>
+                <td><input data-product="research" value="0" min="0" type="number" /></td>
+                <td>Research Questions Asked</td>
+                <td class="value-cell">0.00</td>
+            </tr>
+            <tr>
+                <td><input data-product="computer-training" value="0" min="0" type="number" /></td>
+                <td>Computer Training (Hours)</td>
+                <td class="value-cell">0.00</td>
+            </tr>
+            <tr>
+                <td><input data-product="program-child" value="0" min="0" type="number" /></td>
+                <td>Program Child Participant</td>
+                <td class="value-cell">0.00</td>
+            </tr>
+            <tr>
+                <td><input data-product="program-teen" value="0" min="0" type="number" /></td>
+                <td>Program Teen Participant</td>
+                <td class="value-cell">0.00</td>
+            </tr>
+            <tr>
+                <td><input data-product="program-adult" value="0" min="0" type="number" /></td>
+                <td>Program Adult Participant</td>
+                <td class="value-cell">0.00</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="2">Total Value Received</th>
+                <th id="total-value">$0.00</th>
+            </tr>
+        </tfoot>
+    </table>
+    <p>&nbsp;</p>
+</div>
+
+
+
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const productValues = {
+                books: 15.00,
+                magazines: 5.00,
+                dvds: 17.00,
+                audiobooks: 15.00,
+                ebooks: 15.00,
+                "meeting-room": 50.00,
+                wifi: 4.00,
+                "online-learning": 20.00,
+                databases: 20.00,
+                research: 10.00,
+                "computer-training": 40.00,
+                "program-child": 7.00,
+                "program-teen": 12.00,
+                "program-adult": 15.00
+            };
+
+
+
+            const inputs = document.querySelectorAll('input[data-product]');
+            const totalValueCell = document.getElementById('total-value');
+
+
+
+            function formatCurrency(value) {
+                return "$" + value.toFixed(2);
+            }
+
+
+
+            function calculate() {
+                let total = 0;
+                
+                inputs.forEach(input => {
+                    const quantity = parseInt(input.value) || 0;
+                    const product = input.getAttribute('data-product');
+                    const unitValue = productValues[product] || 0;
+                    const productTotal = quantity * unitValue;
+                    
+                    // Update the corresponding value cell
+                    const valueCell = input.closest('tr').querySelector('.value-cell');
+                    valueCell.textContent = formatCurrency(productTotal);
+                    
+                    total += productTotal;
+                });
+                
+                // Update total
+                totalValueCell.textContent = formatCurrency(total);
+            }
+
+
+
+            // Attach listeners
+            inputs.forEach(input => {
+                input.addEventListener('input', calculate);
+            });
+
+
+
+            // Initial calculation
+            calculate();
+        });
+    </script>

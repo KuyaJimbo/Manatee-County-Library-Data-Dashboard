@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Value Calculator - Five Columns</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Library Service Value Calculator</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Quantity</th>
+                    <th data-role="resizable">Service</th>
+                    <th class="values-explained-column">Values Explained</th>
+                    <th class="value-per-use-column">Value Per Use ($)</th>
+                    <th>Value ($)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input data-product="books" value="0" min="0" type="number" /></td>
+                    <td>Books Borrowed per Month</td>
+                    <td class="values-explained-column values-explained">Estimated average discount cost of hardcover and paperback</td>
+                    <td class="value-per-use-column value-per-use-cell">$15.00</td>
+                    <td class="value-cell">$0.00</td>
+                </tr>
+                <tr>
+                    <td><input data-product="magazines" value="0" min="0" type="number" /></td>
+                    <td>Magazines Borrowed per Month</td>
+                    <td class="values-explained-column values-explained">Estimated average cost to purchase a popular magazine issue</td>
+                    <td class="value-per-use-column value-per-use-cell">$5.00</td>
+                    <td class="value-cell">$0.00</td>
+                </tr>
+                <tr>
+                    <td><input data-product="dvds" value="0" min="0" type="number" /></td>
+                    <td>DVDs Borrowed per Month</td>
+                    <td class="values-explained-column values-explained">Estimated average cost to purchase a DVD</td>
+                    <td class="value-per-use-column value-per-use-cell">$17.00</td>
+                    <td class="value-cell">$0.00</td>
+                </tr>
+                <tr>
+                    <td><input data-product="audiobooks" value="0" min="0" type="number" /></td>
+                    <td>Audiobooks Borrowed per Month</td>
+                    <td class="values-explained-column values-explained">Estimated average cost to purchase an Audiobook</td>
+                    <td class="value-per-use-column value-per-use-cell">$15.00</td>
+                    <td class="value-cell">$0.00</td>
+                </tr>
+                <tr>
+                    <td><input data-product="ebooks" value="0" min="0" type="number" /></td>
+                    <td>eBooks Borrowed per Month</td>
+                    <td class="values-explained-column values-explained">Average cost to download an eBook</td>
+                    <td class="value-per-use-column value-per-use-cell">$15.00</td>
+                    <td class="value-cell">$0.00</td>
+                </tr>
+                <tr>
+                    <td><input data-product="meeting-room" value="0" min="0" type="number" /></td>
+                    <td>Meeting Room Usage Hours per Month</td>
+                    <td class="values-explained-column values-explained">Estimated value</td>
+                    <td class="value-per-use-column value-per-use-cell">$50.00</td>
+                    <td class="value-cell">$0.00</td>
+                </tr>
+                <tr>
+                    <td><input data-product="wifi" value="0" min="0" type="number" /></td>
+                    <td>WiFi Use Hours per Month</td>
+                    <td class="values-explained-column values-explained">Sample hourly rate for secure, high-speed, unlimited wifi from commercial service or internet cafe</td>
+                    <td class="value-per-use-column value-per-use-cell">$4.00</td>
+                    <td class="value-cell">$0.00</td>
+                </tr>
+                <tr>
+                    <td><input data-product="online-learning" value="0" min="0" type="number" /></td>
+                    <td>Online Learning (LinkedIn Learning, etc.) Hours per Month</td>
+                    <td class="values-explained-column values-explained">Average cost of tutor for one hour</td>
+                    <td class="value-per-use-column value-per-use-cell">$20.00</td>
+                    <td class="value-cell">$0.00</td>
+                </tr>
+                <tr>
+                    <td><input data-product="research" value="0" min="0" type="number" /></td>
+                    <td>Research Questions Asked per Month</td>
+                    <td class="values-explained-column values-explained">Average market rate</td>
+                    <td class="value-per-use-column value-per-use-cell">$10.00</td>
+                    <td class="value-cell">$0.00</td>
+                </tr>
+                <tr>
+                    <td><input data-product="computer-training" value="0" min="0" type="number" /></td>
+                    <td>Computer Use Hours per Month</td>
+                    <td class="values-explained-column values-explained">Sample hourly rate for computer rental services (Internet and MS Office) at a copy center (FedEx/Kinkos price) or internet cafe</td>
+                    <td class="value-per-use-column value-per-use-cell">$40.00</td>
+                    <td class="value-cell">$0.00</td>
+                </tr>
+                <tr>
+                    <td><input data-product="program-child" value="0" min="0" type="number" /></td>
+                    <td>Program/Class Attended per Month - Child</td>
+                    <td class="values-explained-column values-explained">Entertainment/program admission fee - estimated average per child</td>
+                    <td class="value-per-use-column value-per-use-cell">$7.00</td>
+                    <td class="value-cell">$0.00</td>
+                </tr>
+                <tr>
+                    <td><input data-product="program-teen" value="0" min="0" type="number" /></td>
+                    <td>Program/Class Attended per Month - Teen</td>
+                    <td class="values-explained-column values-explained">Entertainment/program admission fee - estimated average per teen</td>
+                    <td class="value-per-use-column value-per-use-cell">$12.00</td>
+                    <td class="value-cell">$0.00</td>
+                </tr>
+                <tr>
+                    <td><input data-product="program-adult" value="0" min="0" type="number" /></td>
+                    <td>Program/Class Attended per Month - Adult</td>
+                    <td class="values-explained-column values-explained">Entertainment/program admission fee - estimated average per adult</td>
+                    <td class="value-per-use-column value-per-use-cell">$15.00</td>
+                    <td class="value-cell">$0.00</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="4">Total Value Received</th>
+                    <th class="value-per-use-column"></th>
+                    <th id="total-value">$0.00</th>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="buttons-container">
+            <h2>Load Fiscal Year Data</h2>
+            <div class="fy-buttons-row">
+                <button class="fy-button" type="button">FY 2022-23</button>
+                <button class="fy-button" type="button">FY 2023-24</button>
+                <button class="fy-button" type="button">FY 2024-25</button>
+            </div>
+            <div class="control-buttons-row">
+                <button class="clear-button" type="button">Clear All</button>
+                <button class="toggle-explanation-button" type="button">Show How Service Values Were Calculated</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .container {
+            font-family: 'Open Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+            color: #333333;
+            text-align: left;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #415364;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid #415364;
+            margin-bottom: 30px;
+        }
+
+        th {
+            background-color: #415364;
+            color: white;
+            font-weight: bold;
+            padding: 12px 20px;
+            border: 1px solid #415364;
+        }
+
+        th:nth-child(4),
+        th:nth-child(5) {
+            text-align: right;
+        }
+
+        td {
+            padding: 12px 20px;
+            border: 1px solid #415364;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #e5e9ed;
+        }
+
+        tfoot th {
+            font-weight: bold;
+            border: 1px solid #415364;
+            background-color: #415364;
+            color: white;
+        }
+
+        input[type="number"] {
+            width: 120px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .value-cell {
+            padding: 12px 20px;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .values-explained {
+            text-align: left;
+            font-weight: bold;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .values-explained-column {
+            display: none;
+        }
+
+        .values-explained-column.visible {
+            display: table-cell;
+        }
+
+        .value-per-use-column {
+            display: none;
+            text-align: right;
+            font-weight: bold;
+            padding: 12px 20px;
+            border: 1px solid #415364;
+        }
+
+        .value-per-use-column.visible {
+            display: table-cell;
+        }
+
+        .value-per-use-cell {
+            color: #415364;
+            font-size: 14px;
+        }
+
+        #total-value {
+            text-align: right;
+            font-size: 18px;
+        }
+
+        .buttons-container {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .buttons-container h2 {
+            color: #415364;
+            margin-bottom: 15px;
+        }
+
+        .fy-buttons-row {
+            margin-bottom: 15px;
+        }
+
+        .control-buttons-row {
+            margin-top: 15px;
+        }
+
+        .fy-button {
+            background-color: #415364;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 0 10px 10px 10px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .fy-button:hover {
+            background-color: #2c3e50;
+        }
+
+        .fy-button:active {
+            background-color: #1a252f;
+        }
+
+        .clear-button, .toggle-explanation-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px 10px 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .clear-button:hover, .toggle-explanation-button:hover {
+            background-color: #c0392b;
+        }
+
+        .toggle-explanation-button {
+            background-color: #3498db;
+        }
+
+        .toggle-explanation-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            input[type="number"] {
+                width: 80px;
+            }
+            
+            th, td {
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+            
+            .values-explained {
+                font-size: 12px;
+            }
+        }
+    </style>
+
+    <script>
+        const productValues = {
+            "books": 15.00,
+            "magazines": 5.00,
+            "dvds": 17.00,
+            "audiobooks": 15.00,
+            "ebooks": 15.00,
+            "meeting-room": 50.00,
+            "wifi": 4.00,
+            "online-learning": 20.00,
+            "databases": 20.00,
+            "research": 10.00,
+            "computer-training": 40.00,
+            "program-child": 7.00,
+            "program-teen": 12.00,
+            "program-adult": 15.00
+        };
+
+        const fiscalYearData = {
+            "2022-23": {
+                "books": 331980,
+                "magazines": 1,
+                "dvds": 47917,
+                "audiobooks": 194510,
+                "ebooks": 716744,
+                "meeting-room": 1,
+                "wifi": 1,
+                "online-learning": 1,
+                "research": 208495,
+                "computer-training": 0,
+                "program-child": 22056,
+                "program-teen": 1353,
+                "program-adult": 16278
+            },
+            "2023-24": {
+                "books": 368829,
+                "magazines": 1,
+                "dvds": 52443,
+                "audiobooks": 238401,
+                "ebooks": 867583,
+                "meeting-room": 1,
+                "wifi": 1,
+                "online-learning": 1,
+                "research": 254036,
+                "computer-training": 1599,
+                "program-child": 42807,
+                "program-teen": 2450,
+                "program-adult": 30959
+            },
+            "2024-25": {
+                "books": 352678,
+                "magazines": 1,
+                "dvds": 55408,
+                "audiobooks": 289231,
+                "ebooks": 1103667,
+                "meeting-room": 1,
+                "wifi": 1,
+                "online-learning": 1,
+                "research": 279464,
+                "computer-training": 3007,
+                "program-child": 43739,
+                "program-teen": 3347,
+                "program-adult": 31806
+            }
+        };
+
+        let inputs;
+        let totalValueCell;
+        let explanationColumns;
+        let valuePerUseColumns;
+        let toggleButton;
+        let isExplanationVisible = false;
+
+        function formatCurrency(value) {
+            return "$" + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+
+        function calculate() {
+            let total = 0;
+            
+            inputs.forEach(input => {
+                const quantity = parseInt(input.value) || 0;
+                const product = input.getAttribute('data-product');
+                const unitValue = productValues[product] || 0;
+                const productTotal = quantity * unitValue;
+                
+                // Update the corresponding value cell
+                const valueCell = input.closest('tr').querySelector('.value-cell');
+                valueCell.textContent = formatCurrency(productTotal);
+                
+                total += productTotal;
+            });
+            
+            // Update total
+            totalValueCell.textContent = formatCurrency(total);
+        }
+
+        function loadFiscalYear(year) {
+            const data = fiscalYearData[year];
+            if (data) {
+                inputs.forEach(input => {
+                    const product = input.getAttribute('data-product');
+                    if (data.hasOwnProperty(product)) {
+                        animateValue(input, parseInt(input.value) || 0, data[product], 1500);
+                    }
+                });
+            }
+        }
+
+        function animateValue(input, start, end, duration) {
+            const startTime = performance.now();
+            
+            function update() {
+                const elapsed = performance.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = Math.round(start + (end - start) * easeOut);
+                
+                input.value = current;
+                calculate();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        function clearAll() {
+            inputs.forEach(input => {
+                input.value = 0;
+            });
+            calculate();
+        }
+
+        function updateColspan() {
+    const labelCell = document.getElementById('total-label');
+    let span = 2; // Quantity + Service are always shown
+
+    if (isExplanationVisible) {
+        // Add 1 for Values Explained column
+        span++;
+        // Add 1 for Value Per Use column
+        span++;
+    }
+    labelCell.setAttribute('colspan', span);
+}
+
+function toggleExplanation() {
+    isExplanationVisible = !isExplanationVisible;
+
+    // Toggle visibility of explanation columns
+    explanationColumns.forEach(column => {
+        column.classList.toggle('visible', isExplanationVisible);
+    });
+
+    // Toggle visibility of value per use columns
+    valuePerUseColumns.forEach(column => {
+        column.classList.toggle('visible', isExplanationVisible);
+    });
+
+    // Update button text
+    toggleButton.textContent = isExplanationVisible
+        ? 'Hide How Service Values Were Calculated'
+        : 'Show How Service Values Were Calculated';
+
+    // Update colspan
+    updateColspan();
+}
+
+// Call this once at initialization too
+updateColspan();
+
+
+
+        function initializeCalculator() {
+            inputs = document.querySelectorAll('input[data-product]');
+            totalValueCell = document.getElementById('total-value');
+            explanationColumns = document.querySelectorAll('.values-explained-column');
+            valuePerUseColumns = document.querySelectorAll('.value-per-use-column');
+            toggleButton = document.querySelector('.toggle-explanation-button');
+
+            if (!inputs.length || !totalValueCell || !toggleButton) {
+                setTimeout(initializeCalculator, 100);
+                return;
+            }
+
+            // Attach listeners to input fields
+            inputs.forEach(input => {
+                input.addEventListener('input', calculate);
+            });
+
+            // Attach listeners to fiscal year buttons
+            const fyButtons = document.querySelectorAll('.fy-button');
+            fyButtons.forEach(button => {
+                const buttonText = button.textContent.trim();
+                let year = '';
+                if (buttonText.includes('2022-23')) year = '2022-23';
+                else if (buttonText.includes('2023-24')) year = '2023-24';
+                else if (buttonText.includes('2024-25')) year = '2024-25';
+                
+                if (year) {
+                    button.addEventListener('click', function() {
+                        loadFiscalYear(year);
+                    });
+                }
+            });
+
+            // Attach listener to clear button
+            const clearButton = document.querySelector('.clear-button');
+            if (clearButton) {
+                clearButton.addEventListener('click', clearAll);
+            }
+
+            // Attach listener to toggle explanation button
+            toggleButton.addEventListener('click', toggleExplanation);
+
+            // Initial calculation
+            calculate();
+        }
+
+        // Initialize when ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeCalculator);
+        } else {
+            initializeCalculator();
+        }
+
+        window.addEventListener('load', function() {
+            if (!inputs || !inputs.length) {
+                initializeCalculator();
+            }
+        });
+    </script>
+</body>
+</html>
