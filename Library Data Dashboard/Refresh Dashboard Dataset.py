@@ -63,11 +63,16 @@ TECH_STATS_CELLS = {
 # Computer & Study Room Usage
 USAGE_CELLS = {
     # Row numbers will be added dynamically
-    'Total Computer Usage': 'M',  
-    'Hours Booked': 'T',
-    'Total Bookings': 'V',
-    'Unique Users': 'X',
-    'Number Of Rooms': 'Z'
+    'Total Computer Usage': 'E',  
+    'Study Room Hours Booked': 'L',
+    'Study Room Total Bookings': 'N',
+    'Study Room Unique Users': 'P',
+    'Study Room Number Of Rooms': 'R',
+
+    'Meeting-Group Room Hours Booked': 'Z',
+    'Meeting-Group Room Total Bookings': 'AB',
+    'Meeting-Group Room Unique Users': 'AD',
+    'Meeting-Group Room Number Of Rooms': 'AF'
 }
 
 ILL_CELLS = {
@@ -112,8 +117,9 @@ WORKSHEET_COLUMNS = {
                            'Total Titles Available', 'Patrons Logins', 'Total PAC Searches'],
     
     'Computer & Study Room Usage': ['Location', 'Date', 'Month Name', 'Year', 'Total Computer Usage',
-                         'Hours Booked', 'Total Bookings', 
-                         'Unique Users', 'Number Of Rooms'],
+                        'Study Room Hours Booked', 'Study Room Total Bookings', 'Study Room Unique Users',
+                        'Study Room Number Of Rooms', 'Meeting-Group Room Hours Booked', 'Meeting-Group Room Total Bookings',
+                        'Meeting-Group Room Unique Users', 'Meeting-Group Room Number Of Rooms'],
     
     'Branch Legend': ['Name', 'Location']
 }
@@ -313,15 +319,22 @@ def extract_computer_study_room_usage(sheet, month_name, year, date):
     
     # Process libraries based on detected branch files
     index = 7
-    while sheet[f"J{index}"].value != 'Total':
-        location = sheet[f"J{index}"].value
+    while sheet[f"B{index}"].value != 'Total':
+        location = sheet[f"B{index}"].value
         total_computer_usage = sheet[f"{USAGE_CELLS['Total Computer Usage']}{index}"].value
-        hours_booked = sheet[f"{USAGE_CELLS['Hours Booked']}{index}"].value
-        total_bookings = sheet[f"{USAGE_CELLS['Total Bookings']}{index}"].value
-        unique_users = sheet[f"{USAGE_CELLS['Unique Users']}{index}"].value
-        num_of_rooms = sheet[f"{USAGE_CELLS['Number Of Rooms']}{index}"].value
+        SR_hours_booked = sheet[f"{USAGE_CELLS['Study Room Hours Booked']}{index}"].value
+        SR_total_bookings = sheet[f"{USAGE_CELLS['Study Room Total Bookings']}{index}"].value
+        SR_unique_users = sheet[f"{USAGE_CELLS['Study Room Unique Users']}{index}"].value
+        SR_num_of_rooms = sheet[f"{USAGE_CELLS['Study Room Number Of Rooms']}{index}"].value
 
-        row = [location, date, month_name, year, total_computer_usage, hours_booked, total_bookings, unique_users, num_of_rooms]
+        MR_hours_booked = sheet[f"{USAGE_CELLS['Meeting-Group Room Hours Booked']}{index}"].value
+        MR_total_bookings = sheet[f"{USAGE_CELLS['Meeting-Group Room Total Bookings']}{index}"].value
+        MR_unique_users = sheet[f"{USAGE_CELLS['Meeting-Group Room Unique Users']}{index}"].value
+        MR_num_of_rooms = sheet[f"{USAGE_CELLS['Meeting-Group Room Number Of Rooms']}{index}"].value
+
+        row = [location, date, month_name, year, total_computer_usage, SR_hours_booked, SR_total_bookings, 
+               SR_unique_users, SR_num_of_rooms, MR_hours_booked, MR_total_bookings,MR_unique_users, MR_num_of_rooms]
+
         usage_rows.append(row)
         index += 1
         if index == 30:

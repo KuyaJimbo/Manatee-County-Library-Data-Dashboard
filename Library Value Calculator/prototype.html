@@ -1,0 +1,667 @@
+
+<style>
+    .container {
+        color: #333333;
+        text-align: left;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #415364;
+        margin-bottom: 30px;
+    }
+
+    th {
+        background-color: #415364;
+        color: white;
+        font-weight: bold;
+        padding: 12px 20px;
+        border: 1px solid #415364;
+    }
+
+    th:nth-child(4),
+    th:nth-child(5) {
+        text-align: right;
+    }
+
+    td {
+        padding: 12px 20px;
+        border: 1px solid #415364;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #e5e9ed;
+    }
+
+    tfoot th {
+        font-weight: bold;
+        border: 1px solid #415364;
+        background-color: #415364;
+        color: white;
+    }
+
+    input[type="number"] {
+        width: 120px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .value-cell {
+        padding: 12px 20px;
+        text-align: right;
+        font-weight: bold;
+    }
+
+    .values-explained {
+        text-align: left;
+        /* font-weight: bold; */
+        /* color: #666; */
+        /* font-size: 14px; */
+    }
+
+    .values-explained-column {
+        display: none;
+    }
+
+    .values-explained-column.visible {
+        display: table-cell;
+    }
+
+    .value-per-use-column {
+        display: none;
+        text-align: right;
+        font-weight: bold;
+        padding: 12px 20px;
+        /* border: 1px solid #415364; */
+    }
+
+    .value-per-use-column.visible {
+        display: table-cell;
+    }
+
+    #total-value {
+        text-align: right;
+        font-size: 18px;
+    }
+
+    .buttons-container {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .buttons-container h2 {
+        color: #415364;
+        margin-bottom: 15px;
+    }
+
+    .fy-buttons-row {
+        margin-bottom: 15px;
+    }
+
+    .control-buttons-row {
+        margin-top: 15px;
+    }
+
+    .fy-button {
+        background-color: #415364;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        margin: 0 10px 10px 10px;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .fy-button:hover {
+        background-color: #2c3742;
+    }
+
+    .fy-button:active {
+        background-color: #2c3742;
+    }
+
+    .clear-button, .toggle-explanation-button {
+        background-color: #d15e14;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 0 10px 10px 10px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .clear-button:hover, .toggle-explanation-button:hover {
+        background-color: #9B2E21;
+    }
+
+    .toggle-explanation-button {
+        background-color: #415364;
+    }
+
+    .toggle-explanation-button:hover {
+        background-color: #2c3742;
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 768px) {
+        .container {
+            padding: 10px;
+        }
+        
+        input[type="number"] {
+            width: 80px;
+        }
+        
+        th, td {
+            padding: 8px 10px;
+            font-size: 13px;
+        }
+        
+        .values-explained {
+            font-size: 12px;
+        }
+    }
+</style>
+<script>
+	const productValues = {
+		"Books Borrowed per Month":16,
+		"DVDs Borrowed per Month":10,
+		"Audiobooks Borrowed per Month":25,
+		"eBooks Borrowed per Month":6,
+		"Meeting Room Usage Hours per Month":30,
+		"Study Room Usage Hours per Month":10,
+		"Archive Lab Usage Hours per Month":45,
+		"WiFi Use Hours per Month":4,
+		"Online Resources/Databases Uses per Month":1.49,
+		"Research Questions Asked per Month":15,
+		"Technical Instructions and Training Hours per Month":25,
+		"Computer Use Hours per Month":12,
+		"Program/Class Attended per Month - Child":10,
+		"Program/Class Attended per Month - Teen":13,
+		"Program/Class Attended per Month - Adult":17.5,
+	};
+
+	const fiscalYearData = {
+		"FY 2022-23": {
+			"Books Borrowed per Month":368829,
+			"DVDs Borrowed per Month":52443,
+			"Audiobooks Borrowed per Month":238401,
+			"eBooks Borrowed per Month":867583,
+			"Meeting Room Usage Hours per Month":8823,
+			"Study Room Usage Hours per Month":15835,
+			"Archive Lab Usage Hours per Month":751,
+			"WiFi Use Hours per Month":19871,
+			"Online Resources/Databases Uses per Month":1929083,
+			"Research Questions Asked per Month":254036,
+			"Technical Instructions and Training Hours per Month":5540,
+			"Computer Use Hours per Month":60190,
+			"Program/Class Attended per Month - Child":42807,
+			"Program/Class Attended per Month - Teen":2450,
+			"Program/Class Attended per Month - Adult":30959,
+		},
+		"FY 2023-24": {
+			"Books Borrowed per Month":352678,
+			"DVDs Borrowed per Month":55408,
+			"Audiobooks Borrowed per Month":289231,
+			"eBooks Borrowed per Month":1103667,
+			"Meeting Room Usage Hours per Month":9694,
+			"Study Room Usage Hours per Month":19451,
+			"Archive Lab Usage Hours per Month":2797,
+			"WiFi Use Hours per Month":20131,
+			"Online Resources/Databases Uses per Month":1717609,
+			"Research Questions Asked per Month":279464,
+			"Technical Instructions and Training Hours per Month":3075,
+			"Computer Use Hours per Month":62255,
+			"Program/Class Attended per Month - Child":43739,
+			"Program/Class Attended per Month - Teen":3347,
+			"Program/Class Attended per Month - Adult":31806,
+		},
+		"FY 2024-25": {
+			"Books Borrowed per Month":0,
+			"DVDs Borrowed per Month":0,
+			"Audiobooks Borrowed per Month":0,
+			"eBooks Borrowed per Month":0,
+			"Meeting Room Usage Hours per Month":0,
+			"Study Room Usage Hours per Month":0,
+			"Archive Lab Usage Hours per Month":0,
+			"WiFi Use Hours per Month":0,
+			"Online Resources/Databases Uses per Month":0,
+			"Research Questions Asked per Month":0,
+			"Technical Instructions and Training Hours per Month":0,
+			"Computer Use Hours per Month":0,
+			"Program/Class Attended per Month - Child":0,
+			"Program/Class Attended per Month - Teen":0,
+			"Program/Class Attended per Month - Adult":0,
+		},
+		"FY 2025-26": {
+			"Books Borrowed per Month":0,
+			"DVDs Borrowed per Month":0,
+			"Audiobooks Borrowed per Month":0,
+			"eBooks Borrowed per Month":0,
+			"Meeting Room Usage Hours per Month":0,
+			"Study Room Usage Hours per Month":0,
+			"Archive Lab Usage Hours per Month":0,
+			"WiFi Use Hours per Month":0,
+			"Online Resources/Databases Uses per Month":0,
+			"Research Questions Asked per Month":0,
+			"Technical Instructions and Training Hours per Month":0,
+			"Computer Use Hours per Month":0,
+			"Program/Class Attended per Month - Child":0,
+			"Program/Class Attended per Month - Teen":0,
+			"Program/Class Attended per Month - Adult":0,
+		},
+		"FY 2026-27": {
+			"Books Borrowed per Month":0,
+			"DVDs Borrowed per Month":0,
+			"Audiobooks Borrowed per Month":0,
+			"eBooks Borrowed per Month":0,
+			"Meeting Room Usage Hours per Month":0,
+			"Study Room Usage Hours per Month":0,
+			"Archive Lab Usage Hours per Month":0,
+			"WiFi Use Hours per Month":0,
+			"Online Resources/Databases Uses per Month":0,
+			"Research Questions Asked per Month":0,
+			"Technical Instructions and Training Hours per Month":0,
+			"Computer Use Hours per Month":0,
+			"Program/Class Attended per Month - Child":0,
+			"Program/Class Attended per Month - Teen":0,
+			"Program/Class Attended per Month - Adult":0,
+		},
+		"FY 2027-28": {
+			"Books Borrowed per Month":0,
+			"DVDs Borrowed per Month":0,
+			"Audiobooks Borrowed per Month":0,
+			"eBooks Borrowed per Month":0,
+			"Meeting Room Usage Hours per Month":0,
+			"Study Room Usage Hours per Month":0,
+			"Archive Lab Usage Hours per Month":0,
+			"WiFi Use Hours per Month":0,
+			"Online Resources/Databases Uses per Month":0,
+			"Research Questions Asked per Month":0,
+			"Technical Instructions and Training Hours per Month":0,
+			"Computer Use Hours per Month":0,
+			"Program/Class Attended per Month - Child":0,
+			"Program/Class Attended per Month - Teen":0,
+			"Program/Class Attended per Month - Adult":0,
+		},
+		"FY 2028-29": {
+			"Books Borrowed per Month":0,
+			"DVDs Borrowed per Month":0,
+			"Audiobooks Borrowed per Month":0,
+			"eBooks Borrowed per Month":0,
+			"Meeting Room Usage Hours per Month":0,
+			"Study Room Usage Hours per Month":0,
+			"Archive Lab Usage Hours per Month":0,
+			"WiFi Use Hours per Month":0,
+			"Online Resources/Databases Uses per Month":0,
+			"Research Questions Asked per Month":0,
+			"Technical Instructions and Training Hours per Month":0,
+			"Computer Use Hours per Month":0,
+			"Program/Class Attended per Month - Child":0,
+			"Program/Class Attended per Month - Teen":0,
+			"Program/Class Attended per Month - Adult":0,
+		},
+		"FY 2029-30": {
+			"Books Borrowed per Month":0,
+			"DVDs Borrowed per Month":0,
+			"Audiobooks Borrowed per Month":0,
+			"eBooks Borrowed per Month":0,
+			"Meeting Room Usage Hours per Month":0,
+			"Study Room Usage Hours per Month":0,
+			"Archive Lab Usage Hours per Month":0,
+			"WiFi Use Hours per Month":0,
+			"Online Resources/Databases Uses per Month":0,
+			"Research Questions Asked per Month":0,
+			"Technical Instructions and Training Hours per Month":0,
+			"Computer Use Hours per Month":0,
+			"Program/Class Attended per Month - Child":0,
+			"Program/Class Attended per Month - Teen":0,
+			"Program/Class Attended per Month - Adult":0,
+		},
+	};
+
+    let inputs;
+    let totalValueCell;
+    let explanationColumns;
+    let valuePerUseColumns;
+    let toggleButton;
+    let isExplanationVisible = false;
+
+    function formatCurrency(value) {
+        return "$" + value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+
+        function formatNumberWithCommas(num) {
+        return num.toLocaleString('en-US');
+    }
+
+    function parseNumberFromInput(value) {
+        // Remove commas and parse as integer
+        return parseInt(value.replace(/,/g, '')) || 0;
+    }
+
+    function formatInputValue(input) {
+        const rawValue = input.value.replace(/,/g, '');
+        const numValue = parseInt(rawValue) || 0;
+        if (numValue > 0) {
+            input.value = formatNumberWithCommas(numValue);
+        } else {
+            input.value = '';
+        }
+    }
+
+    // Update the calculate function:
+    function calculate() {
+        let total = 0;
+        
+        inputs.forEach(input => {
+            const quantity = parseNumberFromInput(input.value);
+            const product = input.getAttribute('data-product');
+            const unitValue = productValues[product] || 0;
+            const productTotal = quantity * unitValue;
+            
+            // Update the corresponding value cell
+            const valueCell = input.closest('tr').querySelector('.value-cell');
+            valueCell.textContent = formatCurrency(productTotal);
+            
+            total += productTotal;
+        });
+        
+        // Update total
+        totalValueCell.textContent = formatCurrency(total);
+    }
+
+    // Update the loadFiscalYear function to get the current raw value:
+    function loadFiscalYear(year) {
+        const data = fiscalYearData[year];
+        if (data) {
+            inputs.forEach(input => {
+                const product = input.getAttribute('data-product');
+                if (data.hasOwnProperty(product)) {
+                    const currentValue = parseNumberFromInput(input.value);
+                    animateValue(input, currentValue, data[product], 1500);
+                }
+            });
+        }
+    }
+
+    // Update the animateValue function:
+    function animateValue(input, start, end, duration) {
+        const startTime = performance.now();
+        
+        function update() {
+            const elapsed = performance.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(start + (end - start) * easeOut);
+            
+            input.value = formatNumberWithCommas(current);
+            calculate();
+            
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            }
+        }
+        
+        requestAnimationFrame(update);
+    }
+
+    // Update the clearAll function:
+    function clearAll() {
+        inputs.forEach(input => {
+            input.value = '';
+        });
+        calculate();
+    }
+
+    function toggleExplanation() {
+        isExplanationVisible = !isExplanationVisible;
+
+        // Toggle visibility of explanation columns
+        explanationColumns.forEach(column => {
+            column.classList.toggle('visible', isExplanationVisible);
+        });
+
+        // Toggle visibility of value per use columns
+        valuePerUseColumns.forEach(column => {
+            column.classList.toggle('visible', isExplanationVisible);
+        });
+
+        // Adjust colspan dynamically
+        const totalRowFirstCell = document.querySelector('tfoot th:first-child');
+        if (isExplanationVisible) {
+            // When both explanation columns are visible: Quantity + Service + Values Explained = 3 columns
+            totalRowFirstCell.setAttribute('colspan', '3');
+        } else {
+            // When explanation columns are hidden: Quantity + Service = 2 columns
+            totalRowFirstCell.setAttribute('colspan', '2');
+        }
+
+        // Update button text
+        toggleButton.textContent = isExplanationVisible
+            ? 'Hide How Service Values Were Calculated'
+            : 'Show How Service Values Were Calculated';
+    }
+
+
+    // Update the initializeCalculator function to add input event handlers:
+    function initializeCalculator() {
+        inputs = document.querySelectorAll('input[data-product]');
+        totalValueCell = document.getElementById('total-value');
+        explanationColumns = document.querySelectorAll('.values-explained-column');
+        valuePerUseColumns = document.querySelectorAll('.value-per-use-column');
+        toggleButton = document.querySelector('.toggle-explanation-button');
+
+        if (!inputs.length || !totalValueCell || !toggleButton) {
+            setTimeout(initializeCalculator, 100);
+            return;
+        }
+
+        // Attach listeners to input fields
+        inputs.forEach(input => {
+            // Handle input formatting on blur (when user finishes typing)
+            input.addEventListener('blur', function() {
+                formatInputValue(this);
+            });
+            
+            // Handle calculation on input
+            input.addEventListener('input', function() {
+                calculate();
+            });
+            
+            // Handle focus to remove commas for easier editing
+            input.addEventListener('focus', function() {
+                const rawValue = this.value.replace(/,/g, '');
+                if (rawValue === '0') {
+                    this.value = '';
+                } else {
+                    this.value = rawValue;
+                }
+            });
+        });
+
+        // Attach listeners to fiscal year buttons
+        const fyButtons = document.querySelectorAll('.fy-button');
+        fyButtons.forEach(button => {
+            const buttonText = button.textContent.trim();
+            button.addEventListener('click', function() {
+                loadFiscalYear(buttonText);
+            });
+        });
+
+        // Attach listener to clear button
+        const clearButton = document.querySelector('.clear-button');
+        if (clearButton) {
+            clearButton.addEventListener('click', clearAll);
+        }
+
+        // Attach listener to toggle explanation button
+        toggleButton.addEventListener('click', toggleExplanation);
+
+        // Initial calculation
+        calculate();
+    }
+
+    // Initialize when ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeCalculator);
+    } else {
+        initializeCalculator();
+    }
+
+    window.addEventListener('load', function() {
+        if (!inputs || !inputs.length) {
+            initializeCalculator();
+        }
+    });
+</script>
+
+<table>
+    <thead>
+        <tr>
+            <th>Quantity</th>
+            <th data-role="resizable">Service</th>
+            <th class="values-explained-column">Values Explained</th>
+            <th class="value-per-use-column">Value Per Use ($)</th>
+            <th>Value ($)</th>
+        </tr>
+    </thead>
+    <tbody>
+		<tr>
+			<td><input data-product="Books Borrowed per Month" value="0" min="0" type="text" /></td>
+			<td>Books Borrowed per Month</td>
+			<td class="values-explained-column values-explained">Average retail price of a new paperback book.</td>
+			<td class="value-per-use-column value-per-use-cell">$16.00</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+		<tr>
+			<td><input data-product="DVDs Borrowed per Month" value="0" min="0" type="text" /></td>
+			<td>DVDs Borrowed per Month</td>
+			<td class="values-explained-column values-explained">Matches typical purchase cost for a new or recent DVD.</td>
+			<td class="value-per-use-column value-per-use-cell">$10.00</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+		<tr>
+			<td><input data-product="Audiobooks Borrowed per Month" value="0" min="0" type="text" /></td>
+			<td>Audiobooks Borrowed per Month</td>
+			<td class="values-explained-column values-explained">Reflects average price for full-length audiobooks from Audible or publishers.</td>
+			<td class="value-per-use-column value-per-use-cell">$25.00</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+		<tr>
+			<td><input data-product="eBooks Borrowed per Month" value="0" min="0" type="text" /></td>
+			<td>eBooks Borrowed per Month</td>
+			<td class="values-explained-column values-explained">Reflects average cost of popular consumer eBooks (not free/public domain).</td>
+			<td class="value-per-use-column value-per-use-cell">$6.00</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+		<tr>
+			<td><input data-product="Meeting Room Usage Hours per Month" value="0" min="0" type="text" /></td>
+			<td>Meeting Room Usage Hours per Month</td>
+			<td class="values-explained-column values-explained">Based on hourly rental rates of comparable private meeting spaces in community centers.</td>
+			<td class="value-per-use-column value-per-use-cell">$30.00</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+		<tr>
+			<td><input data-product="Study Room Usage Hours per Month" value="0" min="0" type="text" /></td>
+			<td>Study Room Usage Hours per Month</td>
+			<td class="values-explained-column values-explained">Aligns with value of private study rooms or co-working quiet spaces per hour.</td>
+			<td class="value-per-use-column value-per-use-cell">$10.00</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+		<tr>
+			<td><input data-product="Archive Lab Usage Hours per Month" value="0" min="0" type="text" /></td>
+			<td>Archive Lab Usage Hours per Month</td>
+			<td class="values-explained-column values-explained">Based on commercial digitization services (VHS transfer, slide scanning, etc.) including staff support.</td>
+			<td class="value-per-use-column value-per-use-cell">$45.00</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+		<tr>
+			<td><input data-product="WiFi Use Hours per Month" value="0" min="0" type="text" /></td>
+			<td>WiFi Use Hours per Month</td>
+			<td class="values-explained-column values-explained">Reflects value of secure high-speed internet access in public/commercial spaces.</td>
+			<td class="value-per-use-column value-per-use-cell">$4.00</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+		<tr>
+			<td><input data-product="Online Resources/Databases Uses per Month" value="0" min="0" type="text" /></td>
+			<td>Online Resources/Databases Uses per Month</td>
+			<td class="values-explained-column values-explained">Represents the average cost per use or view across our online services, including Morningstar, Value Line, OverDrive, ProQuest, AtoZdatabases, PressReader, Mango Languages, LinkedIn Learning, and NewsBank.</td>
+			<td class="value-per-use-column value-per-use-cell">$1.49</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+		<tr>
+			<td><input data-product="Research Questions Asked per Month" value="0" min="0" type="text" /></td>
+			<td>Research Questions Asked per Month</td>
+			<td class="values-explained-column values-explained">Equivalent to hiring a research assistant or paying for a reference consultation.</td>
+			<td class="value-per-use-column value-per-use-cell">$15.00</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+		<tr>
+			<td><input data-product="Technical Instructions and Training Hours per Month" value="0" min="0" type="text" /></td>
+			<td>Technical Instructions and Training Hours per Month</td>
+			<td class="values-explained-column values-explained">Based on average hourly rate for adult education, digital literacy classes, or technology tutoring through community centers, workforce training, or commercial platforms.</td>
+			<td class="value-per-use-column value-per-use-cell">$25.00</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+		<tr>
+			<td><input data-product="Computer Use Hours per Month" value="0" min="0" type="text" /></td>
+			<td>Computer Use Hours per Month</td>
+			<td class="values-explained-column values-explained">Matches internet café/computer rental rates per hour, especially with MS Office access.</td>
+			<td class="value-per-use-column value-per-use-cell">$12.00</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+		<tr>
+			<td><input data-product="Program/Class Attended per Month - Child" value="0" min="0" type="text" /></td>
+			<td>Program/Class Attended per Month - Child</td>
+			<td class="values-explained-column values-explained">Estimated value based on costs for enrichment or storytime programs in community centers.</td>
+			<td class="value-per-use-column value-per-use-cell">$10.00</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+		<tr>
+			<td><input data-product="Program/Class Attended per Month - Teen" value="0" min="0" type="text" /></td>
+			<td>Program/Class Attended per Month - Teen</td>
+			<td class="values-explained-column values-explained">Based on creative or educational teen-focused activities (e.g. coding, crafts).</td>
+			<td class="value-per-use-column value-per-use-cell">$13.00</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+		<tr>
+			<td><input data-product="Program/Class Attended per Month - Adult" value="0" min="0" type="text" /></td>
+			<td>Program/Class Attended per Month - Adult</td>
+			<td class="values-explained-column values-explained">Reflects value of workshops, lectures, or adult education programs elsewhere.</td>
+			<td class="value-per-use-column value-per-use-cell">$17.50</td>
+			<td class="value-cell">$0.00</td>
+		</tr>
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="2">Total Value Received</th>
+            <th class="value-per-use-column"></th>
+            <th id="total-value">$0.00</th>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="buttons-container">
+    <h2>Load Fiscal Year Data</h2>
+    <h3>These values represent the total annual usage across all branches, not monthly personal usage.</h3>
+        <div class="fy-buttons-row">
+			<button class="fy-button" type="button">FY 2022-23</button>
+			<button class="fy-button" type="button">FY 2023-24</button>
+
+        </div>
+    <div class="control-buttons-row"><button class="clear-button" type="button">Clear All</button><button class="toggle-explanation-button" type="button">Show How Service Values Were Calculated</button></div>
+</div>
