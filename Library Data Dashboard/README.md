@@ -112,10 +112,7 @@ pip install openpyxl
 
 ## Usage
 1. Place this script (Refresh Dashboard Dataset.py) in the Dashboard folder, one level above all fiscal-year folders.
-2. Run:
-```
-python Refresh\ Dashboard\ Dataset.py
-```
+2. Run: `Refresh Dashboard Dataset.py`
 3. The script generates `MasterDataset.xlsx` in the same folder.
 4. Import `MasterDataset.xlsx` into **Power BI** for reporting.
 
