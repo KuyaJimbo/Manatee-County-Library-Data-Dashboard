@@ -4,8 +4,7 @@ This repository contains multiple projects developed to support Manatee County P
 
 ## 📂 Projects
 ### 1. Library Data Dashboard
-[Visit Manatee County Library Dashboard]([https://www.mymanatee.org/departments/manatee_county_public_library_system](https://app.powerbigov.us/view?r=eyJrIjoiMmU2MmVhNzEtY2Y4Yi00NWUzLTg2NTgtNmFiYjg4MDU3MmVkIiwidCI6ImNiZjE4NTg3LTc0MjItNDBmMi1hOGYyLWVhYTNhNGVhNDI0MCJ9&pageName=36bcde6e6c9f7f8b1db1))
-
+https://app.powerbigov.us/view?r=eyJrIjoiMmU2MmVhNzEtY2Y4Yi00NWUzLTg2NTgtNmFiYjg4MDU3MmVkIiwidCI6ImNiZjE4NTg3LTc0MjItNDBmMi1hOGYyLWVhYTNhNGVhNDI0MCJ9&pageName=36bcde6e6c9f7f8b1db1
 
 A Python-based ETL automation that consolidates messy monthly Excel reports into a clean, standardized dataset (MasterDataset.xlsx). The dataset powers Power BI dashboards (internal and public-facing) for system-wide performance insights.
 
