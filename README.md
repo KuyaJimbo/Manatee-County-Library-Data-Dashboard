@@ -3,8 +3,8 @@
 This repository contains multiple projects developed to support Manatee County Public Library System data reporting, visualization, and patron engagement. Each project is organized into its own folder with documentation and code.
 
 ## 📂 Projects
-### 1. Library Data Dashboard
-[Link](https://app.powerbigov.us/view?r=eyJrIjoiMmU2MmVhNzEtY2Y4Yi00NWUzLTg2NTgtNmFiYjg4MDU3MmVkIiwidCI6ImNiZjE4NTg3LTc0MjItNDBmMi1hOGYyLWVhYTNhNGVhNDI0MCJ9&pageName=36bcde6e6c9f7f8b1db1)
+### 1. Library Data Dashboards
+[Link to Public Facing Dashboard](https://app.powerbigov.us/view?r=eyJrIjoiMmU2MmVhNzEtY2Y4Yi00NWUzLTg2NTgtNmFiYjg4MDU3MmVkIiwidCI6ImNiZjE4NTg3LTc0MjItNDBmMi1hOGYyLWVhYTNhNGVhNDI0MCJ9&pageName=36bcde6e6c9f7f8b1db1)
 
 A Python-based ETL automation that consolidates messy monthly Excel reports into a clean, standardized dataset (MasterDataset.xlsx). The dataset powers Power BI dashboards (internal and public-facing) for system-wide performance insights.
 
@@ -34,6 +34,7 @@ A system that processes LibCal event exports into structured datasets, enabling 
   * Staff time and attendance tracking
 
 ### 3. Library Value Use Calculator
+[Link to Value Use Calculator](https://www.mymanatee.org/library-system/library-value-use-calculator)
 
 A web-based calculator that helps patrons estimate the monetary value of their library usage. The system uses an Excel-driven configuration file to generate production-ready HTML, CSS, and JavaScript.
 
